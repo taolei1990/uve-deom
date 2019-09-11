@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>vue测试demo</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="img/hkw-128_128.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/css/swiper.min.css">
+    <link rel="stylesheet" href="css/gz-custom.css" type="text/css">
+</head>
+<body>
+<div class="page-group">
+<!--    <header class="bar bar-nav gz-bar">
+    <a class="button button-link button-nav pull-left"  data-transition='slide-out'>
+    <span class="icon icon-left"></span>返回</a>
+    <h1 class="title">智库工作坊</h1>
+    </header> -->
+    <div  class="content native-scroll">
+        <div id="app" v-cloak>
+        <div class="gz-banner"><img :src="imgSrc1"></div>
+        <div class="content-padded">
+            <div class="gz-describe">
+                <div class="gz-headline">
+                    <h3  class="gz-h3 gz-subhead">{{titlef}}</h3>
+                    <p  class="gz-synopsis">{{pchvi}} </p>
+                </div>
+                <div class="gz-area">
+                    <div class="gz-stand">
+                        <div class="gz-myg-1"><span class="gz-myg-bj"> </span></div>
+                        <div class="gz-myg-2"><span class="gz-myg-bj"> </span></div>
+                        <div class="gz-portlets">
+                            <h3 class="gz-h3 gz-subhead">
+                                <span class="gz-myg-bj"><i class="iconfont">&#xe6b1;</i></span>
+                                {{reversedMessage}}
+                                <a class="gz-even-more" @click="gzLook()">{{gduo}}<i class="iconfont">&#xe611;</i></a>
+                            </h3>
+                            <div class="gz-author" @click="itemsArticle(articleid)">
+                                <div class="gz-author-portrait">
+                                    <div class="gz-author-img"><img :src="imgSrc2" onerror="this.src='img/logo.png'"></div>
+                                    <div class="gz-author-name gz-h3">{{name}}</div>
+                                    <div class="gz-author-date">{{time}}</div>
+                                </div>
+                                <p class="gz-stand-synopsis">{{title}}</p>
+                                <div class="gz-local-color"><img :src="imgSrc3" onerror="this.src='img/500549129.png'"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="gz-workshop-list">
+            <div class="gz-h3 gz-workshop-title"><i class="iconfont zg-dian">&#xe6a2;</i>{{title}}<a class="gz-even-more" @click="evenMore">{{gduo}}<i
+                    class="iconfont">&#xe611;</i></a></div>
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" v-for="item in groceryList">
+                        <div class="gz-atelier" :data-id="item.id" @click="clickHref(item.id)">
+                            <img class="gz-atelier-dt" :src="imgSrc4" onerror="this.src='img/500549128.png'">
+                            <div class="gz-topteacher">
+                                <div class="gz-topteacher-img">
+                                    <img :src="imgSrc2" onerror="this.src='img/logo.png'">
+                                </div>
+                                <div class="gz-topteacher-name">
+                                    <h3 class="gz-h3">{{ item.text }}</h3>
+                                    <i class="iconfont">&#xe6b2;</i><span class="gz-zuozhei">{{item.membership}}</span>
+                                    <i class="iconfont">&#xe6b3;</i><span class="gz-pageview">{{item.pageviews}}</span>
+                                </div>
+                            </div>
+                            <p class="gz-specialties">{{item.describe}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="gz-achievement">
+            <h3 class="gz-achievement-tiet gz-h3">
+                    <i class="gz-zkcg iconfont">&#xe6b5;</i>智库成果
+                    <a class="gz-even-more">更多
+                    <i class="iconfont">&#xe611;</i></a></h3>
+            <div class="gz-achievement-tbas">
+                <div class="content-block">
+                    <div class="buttons-row gz-hdcg-tba">
+                        <!--<a v-for="(link,index) in tablink"-->
+                        <!--:data-id="link.id"-->
+                        <!--:href="'#'+link.id"-->
+                        <!--class="tab-link button"-->
+                        <!--@click="addClass(index,$event)"-->
+                        <!--:class="{active:index==current}">-->
+                        <!--{{link.text}}-->
+                        <!--</a>-->
+                        <a data-id="a10" href="#a10" class="tab-link button active">
+                            项目
+                        </a>
+                        <a data-id="a11" href="#a11" class="tab-link button ">
+                            活动
+                        </a>
+                        <a data-id="a12" href="#a12" class="tab-link button ">
+                            课程
+                        </a>
+                        <a data-id="a13" href="#a13" class="tab-link button ">
+                            课题
+                        </a>
+                        <a data-id="a14" href="#a14" class="tab-link button ">
+                            成果
+                        </a>
+                    </div>
+                </div>
+                <div class="tabs gz-tabs">
+                    <div id="a10" class="tab active">
+                        <div class="content-block">
+                            <div class="card gz-items-card" v-for="(Project,index) in getproject">
+                                <div class="card-content">
+                                    <div class="card-content-inner">
+                                        <div class="gz-items-bok">
+                                            <div class="gz-items-name">
+                                                <h3 class="gz-items-title">{{Project.title}}</h3>
+                                                <div class="gz-items-zt">
+                                                    <span class="gz-condition" :class="Project.statuscss">{{Project.status}}</span>
+                                                    <span class="gz-project-schedule">{{Project.createTime}} - {{Project.startTime}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="gz-items-type">
+                                                <div class="gz-items-train">{{Project.titleing}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="gz-px-label"><span>{{Project.studioName}}</span></div>
+                                        <div class="gz-items-ending" @click="itemsProject(Project.projectId)"><a class="gz-items-a">查看详情</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                    <div id="a11" class="tab ">
+                        <div class="content-block">
+                            <ul class="gz-curriculum-ul">
+                                <li v-for="(activity,index) in getactivity">
+                                    <div class="gz-event" @click="itemsactivit(activity.activityId,activity.studioId)">
+                                        <div class="gz-event-img">
+                                            <a><img :src="activity.img" onerror="this.src='img/500549128.png'"></a>
+                                            <span class="gz-status" :class="activity.statuscss">{{activity.status}}</span>
+                                        </div>
+                                        <div class="gz-event-text">
+                                            <h3 class="gz-items-title">{{activity.title}}</h3>
+                                            <p>{{activity.type}}</p>
+                                            <div class="gz-event-detail">
+                                                <span class="gz-event-name"><i class="iconfont">&#xe643;</i>{{activity.createUser}}</span>
+                                                |<span class="gz-event-time">发表于{{activity.createDate}}</span>|
+                                                <span class="gz-event-number">共{{activity.memberNum}}人参与</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="a12" class="tab ">
+                        <div class="content-block">
+                            <ul class="gz-curriculum-ul">
+                                <li v-for="(vcard,index) in facebookCard">
+                                    <div class="gz-curriculum" @click='itemsCourse_set(vcard.id)'>
+                                        <div class="gz-curriculum-img">
+                                            <img :src="vcard.cover">
+                                            <div class="gz-curriculum-rating">
+                                                <i class="iconfont star-brightest" v-for="(item,index) in asterastrstar"
+                                                   v-if="index < vcard.rating">&#xe657;</i>
+                                                <i class="iconfont star-dim" v-for="(item,index) in asterastrstar"
+                                                   v-if="index<5-vcard.rating">&#xe655;</i>
+                                            </div>
+                                        </div>
+                                        <div class="gz-curriculum-text">
+                                            <h3 class="gz-items-title">{{vcard.title}}</h3>
+                                            <div class="gz-curriculum-period">课时:<span>{{vcard.taskNum}}</span></div>
+                                            <div class="gz-px-label"><span>{{vcard.task_title}}</span></div>
+                                            <div>
+                                                <span class="gz-views"><i class="iconfont">&#xe639;</i> {{vcard.studentNum}}</span>
+                                                <span class="gz-views"><i class="iconfont">&#xe616;</i> {{vcard.hitNum}}</span>
+                                                <span class="gz-price">价格:{{vcard.price}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="to-where-the"><a>来自{{vcard.studio_name}}</a></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="a13" class="tab ">
+                        <div class="content-block">
+                            <ul class="gz-curriculum-ul">
+                                <li v-for="(event,index) in getevent">
+                                    <div class="gz-problem" @click='itemsSubject(event.studio_id,event.id)'>
+                                        <div class="gz-problem-img"><span>{{event.titleing}}</span></div>
+                                        <div class="gz-problem-text">
+                                            <h3>{{event.title}}</h3>
+                                            <div class="gz-problem-particular">
+                                                <div class="gz-problem-name">
+                                                    <i class="iconfont">&#xe643;</i>
+                                                    <a>{{event.username}}</a>
+                                                    <span>{{event.createdTime}}</span></div>
+                                                <div class="gz-people">
+                                                    <span class="gz-views"><i class="iconfont">&#xe616;</i> {{event.postNum}}</span>
+                                                    <span class="gz-views"><i class="iconfont">&#xe606;</i> {{event.hitNum}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="to-where-the"><a>{{event.studio_name}}</a></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="a14" class="tab">
+                        <div class="content-block">
+                            <ul class="gz-curriculum-ul">
+                                <li v-for="(sion,index) in discussion">
+                                    <div class="gz-problem"  @click='itemsResults(sion.studio_id,sion.id)'>
+                                        <div class="gz-problem-img"><span>{{sion.titleing}}</span></div>
+                                        <div class="gz-problem-text">
+                                            <h3>{{sion.title}}</h3>
+                                            <div class="gz-problem-particular">
+                                                <div class="gz-problem-name">
+                                                    <i class="iconfont">&#xe643;</i>
+                                                    <a>{{sion.username}}</a>
+                                                    <span>{{sion.createdTime}}</span>
+                                                </div>
+                                                <div class="gz-people">
+                                                    <span class="gz-views"><i class="iconfont">&#xe616;</i> {{sion.postNum}}</span>
+                                                    <span class="gz-views"><i class="iconfont">&#xe606;</i> {{sion.hitNum}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="to-where-the"><a>{{sion.studio_name}}</a></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="gz-statistics">
+            <h3 class="gz-achievement-tiet gz-h3"><i class="gz-zkcg iconfont">&#xe6b4;</i>统计
+                <!--<a class="gz-even-more">更多<i class="iconfont">&#xe611;</i></a>-->
+            </h3>
+            <div class="gz-statistical-graph">
+                <div id="main" style="width: 100%;height:300px;"></div>
+            </div>
+        </div>
+        <div class="gz-blogroll">
+            <div class="gz-h3 gz-workshop-title"><i class="iconfont gz-blogroll-ico ">&#xe6ea;</i>友情链接</div>
+            <div class="content-padded grid-demo">
+                <div class="row">
+                    <div class="col-33">
+                        <a href="#">
+                        <div class="gz-blogroll-school">
+                            <img src="img/2_03.png">
+                            <h4 class="gz-blogroll-name">贵州师范大学</h4>
+                        </div>
+                        </a>
+                    </div>
+                    <div class="col-33">
+                        <a href="#">
+                        <div class="gz-blogroll-school">
+                            <img src="img/2_05.png">
+                            <h4 class="gz-blogroll-name">贵州教师教育学校</h4>
+                        </div>
+                        </a>
+                    </div>
+                    <div class="col-33">
+                        <a href="#">
+                        <div class="gz-blogroll-school">
+                            <img src="img/2_07.png">
+                            <h4 class="gz-blogroll-name">北京师范大学贵阳附属中学</h4>
+                        </div>
+                        </a>
+                    </div>
+                    <div class="col-33">
+                        <a href="#">
+                        <div class="gz-blogroll-school">
+                            <img src="img/2_09.png">
+                            <h4 class="gz-blogroll-name">遵义航天高级中学</h4>
+                        </div>
+                        </a>
+                    </div>
+                    <div class="col-33">
+                        <a href="#">
+                        <div class="gz-blogroll-school">
+                            <img src="img/2_16.png">
+                            <h4 class="gz-blogroll-name">贵州省凯里市第一中学</h4>
+                        </div>
+                        </a>
+                    </div>
+                    <div class="col-33">
+                        <a href="#">
+                        <div class="gz-blogroll-school">
+                            <img src="img/2_17.png">
+                            <h4 class="gz-blogroll-name">铜仁市第一中学</h4>
+                        </div>
+                        </a>
+                    </div>
+                    <div class="col-33">
+                        <a href="#">
+                        <div class="gz-blogroll-school">
+                            <img src="img/2_18.png">
+                            <h4 class="gz-blogroll-name">沿河土家族自治县第四中学</h4>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="gz-organizer">
+            <div class="content-padded grid-demo">
+                <div class="row no-gutter">
+                    <div class="col-60">
+                        <h3>承办单位</h3>
+                        <div class="gz-undertaker">
+                            <a href="http://hk.yunjy.com.cn/"><img src="img/a_06.png"></a>
+                            <a href="https://ceshi.yunjy.com.cn/"><img src="img/a_08.png"></a>
+                        </div>
+
+                    </div>
+                    <div class="col-40">
+                        <div class="gz-sponsor">
+                            <h3>主办单位</h3>
+                            <a><p>重庆教育省厅</p></a>
+                            <a><p>贵州省厅</p></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="gz-page-footer">
+            <p class="gz-copyright">Powered by
+                <a href="#" target="_blank">全通云教育</a>
+                &nbsp;&nbsp;
+                <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+                document.write(unescape("%3Cspan id='cnzz_stat_icon_1274099761'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol +
+                    "s13.cnzz.com/z_stat.php%3Fid%3D1274099761%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
+                <span id="cnzz_stat_icon_1274099761">
+                        <a href="http://www.cnzz.com/stat/website.php?web_id=1274099761" target="_blank" title="站长统计">
+                            <img border="0" hspace="0" vspace="0" src="http://icon.cnzz.com/img/pic1.gif"></a>
+                    </span>
+                <script src=" http://s13.cnzz.com/z_stat.php?id=1274099761&amp;show=pic1"
+                        type="text/javascript"></script>
+                <script src="//c.cnzz.com/core.php?web_id=1274099761&amp;show=pic1&amp;t=z" charset="utf-8"
+                        type="text/javascript"></script>
+                <a class="mlm" href="/archive/course">课程存档</a>
+                课程内容版权均归
+                <a href="/">全通云教育科技成都有限公司</a>所有&nbsp;
+                <a href="http://www.miibeian.gov.cn/" target="_blank">蜀ICP备16036405号-1</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<script src='https://g.alicdn.com/sj/lib/zepto/zepto.min.js'></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src='https://g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' ></script>
+<script src='https://g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/js/swiper.min.js"></script>
+<script src="https://cdn.bootcss.com/echarts/4.1.0.rc2/echarts-en.common.min.js"></script>
+
+<script src="js/main-vue.js"></script>
+<script>
+    $(document).ready(function () {
+	              
+		             mySwiper()
+		            var score = ['526','718','210','909','400'];
+		            var category = ['活动数', '课程数','成果数', '课题数',  '项目数']
+		             resultsStatistical(category, score);
+        // axios.get(basePath + '/api/master/studio/statistics', '')
+        //     .then(function (response) {
+        //         var category = [];
+        //         var score = [];
+        //         var activity_count, course_count, discussion_count, event_count, project_count;
+        //         if (response.status == 200) {
+        //             var list = response.data
+        //             activity_count = list.activity_count
+        //             course_count = list.course_count
+        //             discussion_count = list.discussion_count
+        //             event_count = list.event_count
+        //             project_count = list.project_count
+        //             score.push(activity_count, course_count, discussion_count, event_count, project_count)
+        //             category.push('活动数', '课程数','成果数', '课题数',  '项目数')
+        //             resultsStatistical(category, score);
+        //             mySwiper()
+        //         }
+        //     })
+        //     .catch(function (error) {
+        //         console.log(error);
+        //     });
+    });
+
+    //轮播列别
+    function mySwiper() {
+        var mySwiper = new Swiper('.swiper-container', {
+            autoplay: true,//可选选项，自动滑动
+            // slidesPerView : '2',
+            // spaceBetween : 20,
+            // slidesOffsetBefore : 30,
+            // slidesOffsetAfter : 30,
+            loop: true,
+            effect: 'coverflow',
+            slidesPerView: 1.2,
+            centeredSlides: true,
+            coverflowEffect: {
+                rotate: 10,
+                stretch: -30,
+                depth: 100,
+                modifier: 1,
+                slideShadows: false
+            },
+        });
+    }
+
+    //统计图
+    function resultsStatistical(category, score) {
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: '活动统计数',
+                subtext: '统计量',
+                textStyle: {fontSize: 16}
+            },
+            grid: {
+                top: 80,
+            },
+
+            xAxis: [
+                {
+                    type: 'category',
+                    data: category,
+                    axisLine: {show: false},
+                    axisTick: {show: false},
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    axisLine: {show: false},
+                    axisTick: {show: false},
+                    splitNumber: 3,
+
+                },
+            ],
+            series: [
+
+                {
+                    type: 'bar',
+                    data: score,
+                    barWidth: 5,
+                    color: '#42c5fd',
+                    label: {
+                        show: true,
+                         // position: 'top',
+                         position: [-5, -15],
+                        padding: 5,
+                        borderRadius: 300,
+                        backgroundColor: {
+                            image: 'img/sia.png'
+                        },
+                        color: '#fff',
+                        distance: 0,
+                        fontStyle: 'normal',
+                        offset: [25, 5]
+                    },
+                    barGap: '-100%',
+                },
+                {
+                    type: 'bar',
+                    data: score,
+                    barWidth: 5,
+                    color: '#42c5fd',
+                    label: {
+                        show: true,
+                        // position: 'top',
+                        position: [-5, -7],
+                        width: 15,
+                        height: 15,
+                        borderRadius: 300,
+                        backgroundColor: '#fff',
+                        borderColor: '#42c5fd',
+                        borderWidth: 5,
+                        color: '#fff',
+                        distance: 0,
+                        formatter: [
+                            ' ',
+                        ].join('\n'),
+                        rich: {
+                            a: {
+                                color: '#fff',
+                            },
+                        },
+                    },
+                },
+            ]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    };
+	
+</script>
+</body>
+</html>
